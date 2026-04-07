@@ -1,0 +1,22 @@
+[project]
+name = "soc-analyst-env"
+version = "1.0.0"
+description = "Adaptive Threat Response System - OpenEnv SOC Analyst Environment"
+authors = [
+    { name = "Ansh Arya" },
+    { name = "Abhishree Sinha" }
+]
+dependencies = [
+    "openenv-core",
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "requests"
+]
+
+[project.scripts]
+server = "server.app:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
