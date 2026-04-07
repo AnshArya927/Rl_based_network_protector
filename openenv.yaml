@@ -1,3 +1,13 @@
+title: Adaptive Threat Response System
+emoji: 🛡️
+colorFrom: blue
+colorTo: purple
+sdk: docker
+
+name: adaptive-threat-response
+version: "1.0.0"
+...
+
 name: adaptive-threat-response
 version: "1.0.0"
 description: >

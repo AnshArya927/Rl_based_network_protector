@@ -12,6 +12,12 @@ pinned: false
 
 ---
 
+## Team DETAILS
+Team Name - Synaptech
+Member - Ansh Arya 
+Member - Abhishree Sinha
+
+
 ## What This Is
 
 A real-world OpenEnv environment where an AI agent learns to act as a Security Operations Center (SOC) analyst. The agent receives security alerts, makes response decisions, and gets reward signals that reflect whether those decisions were correct. Over many episodes the agent learns to balance security posture against system availability.
@@ -139,7 +145,7 @@ python inference.py
 ### Validate
 ```bash
 openenv validate
-./validate-submission.sh https://YOUR_SPACE.hf.space .
+./validate-submission.sh https://huggingface.co/spaces/AnshArya2810/soc-analyst-env .
 ```
 
 ---
