@@ -12,10 +12,11 @@ pinned: false
 
 ---
 
+---
 ## Team DETAILS
 Team Name - Synaptech
-Member - Ansh Arya 
-Member - Abhishree Sinha
+Member - Ansh Arya,Abhishree Sinha
+---
 
 
 ## What This Is
