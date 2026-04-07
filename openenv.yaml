@@ -1,0 +1,145 @@
+name: adaptive-threat-response
+version: "1.0.0"
+description: >
+  A real-world Security Operations Center environment where an AI agent
+  learns to triage, prioritize, and respond to security alerts. The agent
+  must balance threat containment against system availability across
+  sequential decision episodes with partial reward signals at every step.
+
+author: "SOC-Analyst-Env Team"
+tags:
+  - openenv
+  - cybersecurity
+  - sequential-decision-making
+  - soc-analyst
+  - real-world
+
+base_url: "${SPACE_URL}"
+
+endpoints:
+  reset: "POST /reset"
+  step:  "POST /step"
+  state: "GET /state"
+
+tasks:
+  - task_id: task_1_easy
+    name: "Single Alert Triage"
+    difficulty: easy
+    max_steps: 5
+    description: >
+      One high-severity brute-force attack is hidden among 4 low-severity
+      noise alerts. The agent must identify and block the real threat
+      quickly without over-reacting to the noise.
+
+  - task_id: task_2_medium
+    name: "Alert Queue Under Pressure"
+    difficulty: medium
+    max_steps: 15
+    description: >
+      15 steps with 3 real threats hidden among 8 false positives and
+      4 ambiguous alerts. Agent must prioritize correctly and use
+      proportionate responses — not block everything.
+
+  - task_id: task_3_hard
+    name: "Multi-Stage APT Attack"
+    difficulty: hard
+    max_steps: 30
+    description: >
+      A coordinated Advanced Persistent Threat unfolds across 4 stages:
+      reconnaissance, initial access, lateral movement, and exfiltration.
+      Agent must recognize the pattern and contain before full compromise.
+      12 noise alerts distract throughout.
+
+action_space:
+  type: discrete
+  actions:
+    - name: ignore
+      description: Take no action — accept the risk
+    - name: investigate
+      description: Gather more information — low disruption, slow response
+    - name: block
+      description: Block the source IP — moderate disruption
+    - name: isolate
+      description: Isolate the affected system — high disruption
+    - name: escalate
+      description: Escalate to human analyst — delays resolution
+
+observation_space:
+  fields:
+    - name: alert_id
+      type: string
+      description: Unique identifier for this alert
+    - name: alert_type
+      type: string
+      description: Category of security alert
+      values:
+        - brute_force
+        - malware_detected
+        - data_exfiltration
+        - lateral_movement
+        - privilege_escalation
+        - port_scan
+        - phishing_attempt
+        - anomalous_traffic
+        - insider_threat
+        - ransomware
+    - name: severity
+      type: float
+      range: [0.0, 1.0]
+      description: Severity score of the alert
+    - name: source_ip
+      type: string
+      description: IP address generating the alert
+    - name: affected_systems
+      type: list[string]
+      description: Systems involved in the alert
+    - name: confidence
+      type: float
+      range: [0.0, 1.0]
+      description: Detection system confidence
+    - name: security_state
+      type: float
+      range: [0.0, 1.0]
+      description: Current threat level — 0=safe, 1=full compromise
+    - name: system_health
+      type: float
+      range: [0.0, 1.0]
+      description: System availability — 1=fully operational, 0=unusable
+    - name: step_number
+      type: integer
+      description: Current step in the episode
+    - name: max_steps
+      type: integer
+      description: Total steps in this episode
+    - name: context
+      type: list[object]
+      description: Recent alert history for pattern recognition
+    - name: attack_stage
+      type: string
+      description: Current detected attack stage (visible in medium/hard tasks)
+
+reward:
+  range: [-1.0, 1.0]
+  description: >
+    Partial signal at every step. Components: security gain for correctly
+    addressing real threats, health preservation bonus for avoiding
+    unnecessary disruption, false-positive penalty for acting on harmless
+    alerts, missed-threat penalty for ignoring real threats.
+  is_sparse: false
+
+episode:
+  termination_conditions:
+    - max_steps_reached
+    - security_state_reaches_0.95
+    - system_health_drops_below_0.05
+
+baseline_scores:
+  task_1_easy:
+    random_agent: 0.15
+    optimal_agent: 0.95
+  task_2_medium:
+    random_agent: 0.20
+    optimal_agent: 0.90
+  task_3_hard:
+    random_agent: 0.10
+    optimal_agent: 0.85
