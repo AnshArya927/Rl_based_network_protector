@@ -1,18 +1,4 @@
 ---
-title: Adaptive Threat Response System
-emoji: 🛡️
-colorFrom: blue
-colorTo: purple
-sdk: docker
-app_port: 7860
-pinned: false
----
-
-[![openenv](https://img.shields.io/badge/openenv-compatible-blue)](https://github.com/openenv)
-
----
-
----
 
 ## Team DETAILS
 Team Name - Synaptech
