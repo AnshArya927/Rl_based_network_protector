@@ -16,9 +16,7 @@ pinned: false
 
 ## Team DETAILS
 Team Name - Synaptech
-
 Member - Ansh Arya , Abhishree Sinha
-
 ---
 
 
