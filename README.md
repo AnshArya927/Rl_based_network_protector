@@ -167,7 +167,7 @@ soc-analyst-env/
 ├── api/
 │   └── server.py           # FastAPI HTTP layer
 ├── server/                 
-│   └── app.py              # OpenEnv validation bridg
+│   └── app.py              # OpenEnv validation bridge
 ├── inference.py            # LLM baseline (required by hackathon)
 ├── openenv.yaml            # OpenEnv spec metadata
 ├── Dockerfile              # Builds HF Space Docker image
